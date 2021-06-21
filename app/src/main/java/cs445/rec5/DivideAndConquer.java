@@ -86,6 +86,19 @@ public class DivideAndConquer {
      */
     private static <T> void reverse(T[] arr, T[] aux, int start, int end) {
         // TODO: Complete this method using divide & conquer recursion.
+
+        if (end - start > 1)
+        {
+            int mid = (start + end)/2;
+
+            // Reverse the first half
+            reverse(arr, aux, start, mid);
+
+            // Reverse the second half
+            reverse(arr, aux, mid, end);
+
+            swapRegions(arr, aux, start, mid, end);
+        }
     }
 
     /**
@@ -115,7 +128,19 @@ public class DivideAndConquer {
      */
     private static MinMax findMinMax(int[] nums, int start, int end){
         // TODO: Complete this method using divide & conquer recursion.
-        return null;
+        // return null;
+
+        if (start+1 == end){ return new MinMax(nums[start], nums[start]); }
+
+        else
+        {
+            int mid = (start + end)/2;
+
+            MinMax firstHalf = findMinMax(nums, start, mid);
+            MinMax secondHalf = findMinMax(nums, mid, end);
+
+            return new MinMax(Math.min(firstHalf.min, secondHalf.min), Math.max(firstHalf.max, secondHalf.max) );
+        }
     }
 }
 
